@@ -7,17 +7,17 @@
     "watch:sass": "node-sass resources/sass/main.scss resources/css/style.css -w",
     "devserver": "live-server",
     "start": "npm-run-all --parallel devserver watch:sass",
-    
-    "compile:sass": "node-sass resources/sass/main.scss resources/css/style.comp.css",
-    "compress:css": "node-sass resources/css/style.comp.css resources/css/style.css --output-style compressed",
-    "build:css": "npm-run-all compile:sass compress:css"
+
+    "compile:sass": "sass resources/sass/main.scss resources/css/style.comp.css",
+    "prefix:css": "postcss --use autoprefixer -b 'last versions' resources/css/style.comp.css -o resources/css/style.prefix.css",
+    "compress:css": "uglifycss resources/css/style.prefix.css > resources/css/style.css",
+    "build:css": "npm-run-all compile:sass prefix:css compress:css"
   },
   "author": "Meharpreet Singh",
   "license": "ISC",
   "devDependencies": {
     "autoprefixer": "^7.1.4",
     "concat": "^1.0.3",
-    "node-sass": "^4.5.3",
     "npm-run-all": "^4.1.1",
     "postcss-cli": "^4.1.1"
   }
